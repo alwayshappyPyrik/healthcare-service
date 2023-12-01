@@ -27,24 +27,24 @@ public class Main {
         File repoFile = new File("patients.txt");
         PatientInfoRepository patientInfoRepository = new PatientInfoFileRepository(repoFile, mapper);
 
-        String id1 = patientInfoRepository.add(
-            new PatientInfo("Иван", "Петров", LocalDate.of(1980, 11, 26),
-                new HealthInfo(new BigDecimal("36.65"), new BloodPressure(120, 80)))
-        );
-
-        String id2 = patientInfoRepository.add(
-            new PatientInfo("Семен", "Михайлов", LocalDate.of(1982, 1, 16),
-                new HealthInfo(new BigDecimal("36.6"), new BloodPressure(125, 78)))
-        );
+//        String id1 = patientInfoRepository.add(
+//            new PatientInfo("Иван", "Петров", LocalDate.of(1980, 11, 26),
+//                new HealthInfo(new BigDecimal("36.65"), new BloodPressure(120, 60)))
+//        );
+//
+//        String id2 = patientInfoRepository.add(
+//            new PatientInfo("Семен", "Михайлов", LocalDate.of(1982, 1, 16),
+//                new HealthInfo(new BigDecimal("36.6"), new BloodPressure(125, 78)))
+//        );
 
         SendAlertService alertService = new SendAlertServiceImpl();
         MedicalService medicalService = new MedicalServiceImpl(patientInfoRepository, alertService);
 
         //run service
-        BloodPressure currentPressure = new BloodPressure(60, 120);
-        medicalService.checkBloodPressure(id1, currentPressure);
+        BloodPressure currentPressure = new BloodPressure(120, 60);
+        medicalService.checkBloodPressure("095d8e19-3754-46aa-96ab-139135e9dc2f", currentPressure);
 
-        BigDecimal currentTemperature = new BigDecimal("37.9");
-        medicalService.checkTemperature(id1, currentTemperature);
+        BigDecimal currentTemperature = new BigDecimal("39.9");
+        medicalService.checkTemperature("095d8e19-3754-46aa-96ab-139135e9dc2f", currentTemperature);
     }
 }
